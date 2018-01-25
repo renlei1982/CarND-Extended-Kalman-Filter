@@ -88,6 +88,10 @@ int main(int argc, char* argv[]) {
       float y;
       iss >> x;
       iss >> y;
+      if (x == 0 && y == 0){
+        x = 0.01;
+        y = 0.01;
+      }
       meas_package.raw_measurements_ << x, y;
       iss >> timestamp;
       meas_package.timestamp_ = timestamp;
@@ -95,8 +99,10 @@ int main(int argc, char* argv[]) {
     } else if (sensor_type.compare("R") == 0) {
       // RADAR MEASUREMENT
 
+
       // read measurements at this timestamp
       meas_package.sensor_type_ = MeasurementPackage::RADAR;
+
       meas_package.raw_measurements_ = VectorXd(3);
       float ro;
       float phi;
@@ -104,6 +110,10 @@ int main(int argc, char* argv[]) {
       iss >> ro;
       iss >> phi;
       iss >> ro_dot;
+      if (ro == 0 && phi == 0){
+        ro = 0.01;
+        phi = 0.01;
+      }
       meas_package.raw_measurements_ << ro, phi, ro_dot;
       iss >> timestamp;
       meas_package.timestamp_ = timestamp;
